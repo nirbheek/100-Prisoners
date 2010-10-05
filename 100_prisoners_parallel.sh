@@ -16,11 +16,11 @@ locate() {
     local found=${boxes[$((wanted-1))]}
     # Walk the boxes till we find 'wanted'
     while [[ $count -lt $((num_inmates >> 1)) ]]; do
-        found=${boxes[$((found-1))]}
         if [[ $found == $wanted ]]; then
             echo 1
             break
         fi
+        found=${boxes[$((found-1))]}
         count=$((count+1))
     done
 }

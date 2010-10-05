@@ -8,10 +8,10 @@ def locate(array, wanted):
     count = 0
     found = array[wanted-1]
     # Walk the boxes till we find 'wanted'
-    while count < num_inmates >> 1:
-        found = array[found-1]
+    while count < num_inmates / 2:
         if found == wanted:
             return True
+        found = array[found-1]
         count += 1
     return False
 
@@ -31,7 +31,7 @@ while sample_done < sample_size:
             inmate_success += 1
     total_found += inmate_success
     sample_done += 1
-    if inmate_success == 100:
+    if inmate_success == num_inmates:
         success += 1
     elif inmate_success == 0:
         failure += 1

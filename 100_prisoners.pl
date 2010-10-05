@@ -21,10 +21,10 @@ sub locate {
     my $found = $array[$wanted-1];
     # Walk the boxes till we find 'wanted'
     while ($count < ($num_inmates >> 1)) {
-        $found = $array[$found-1];
         if ($found == $wanted) {
             return 1;
         }
+        $found = $array[$found-1];
         $count += 1;
     }
     return 0;
