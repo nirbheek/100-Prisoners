@@ -1,5 +1,6 @@
 // vim: sts=4 sw=4 et :
 
+#include <omp.h>
 #include <stdio.h>
 #include <stdlib.h>
 //#include <glib.h>
@@ -27,6 +28,7 @@ int main() {
     int total_found = 0;
     int inmate_success;
     int boxes[num_inmates];
+    int inmate_success_list[num_inmates];
     int i, j;
     // Initialize boxes
     for (i = 0; i < num_inmates; i++)
@@ -45,8 +47,13 @@ int main() {
             boxes[i] = boxes[i] ^ boxes[j];
         }
         inmate_success = 0;
+        #pragma omp parallel for
         for (i = 0; i < num_inmates; i++)
-            inmate_success += locate(boxes, i+1);
+            // Use a list to store the results => don't need locking
+            // uses up a lot more memory though
+            inmate_success_list[i] = locate(boxes, i+1);
+        for (i = 0; i < num_inmates; i++)
+            inmate_success += inmate_success_list[i];
         samples_done++;
         total_found += inmate_success;
         if (inmate_success == num_inmates)
