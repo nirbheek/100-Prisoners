@@ -69,9 +69,9 @@ int main()
             failure++;
     }
 
-    printf ("Successes: %f\n", success * 100.0 / sample_size);
-    printf ("Partial Successes: %f\n", (sample_size - success - failure) * 100.0 / sample_size);
-    printf ("Failures: %f\n", failure * 100.0 / sample_size);
-    printf ("Individual chances: %f\n", total_found * 100.0 / (sample_size * num_inmates));
+    printf ("Successes: %f%%\n", success * 100.0 / sample_size);
+    printf ("Partial Successes: %f%%\n", (sample_size - success - failure) * 100.0 / sample_size);
+    printf ("Failures: %f%%\n", failure * 100.0 / sample_size);
+    printf ("Individual chances: %f%%\n", total_found * 100.0 / (sample_size * num_inmates));
     return 0;
 }
