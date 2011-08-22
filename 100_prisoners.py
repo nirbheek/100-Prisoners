@@ -4,33 +4,35 @@
 from __future__ import division
 import random
 
+num_inmates = 1000
+sample_size = 10000
+
 def locate(array, wanted):
     count = 0
     found = array[wanted-1]
-    # Walk the boxes till we find 'wanted'
-    while count < num_inmates / 2:
+    # Walk the boxes till we find 'wanted', or have checked half the boxes
+    while count < (num_inmates >> 1):
         if found == wanted:
-            return True
+            return 1
         found = array[found-1]
         count += 1
-    return False
+    return 0
 
-sample_done = 0
-sample_size = 100
-failure = success = 0
+samples_done = 0
+failure = 0
+success = 0
 total_found = 0
-num_inmates = 100
 boxes = range(1, num_inmates+1)
-inmates = range(1, num_inmates+1)
 
-while sample_done < sample_size:
+while samples_done < sample_size:
     random.shuffle(boxes)
     inmate_success = 0
-    for inmate in inmates:
-        if locate(boxes, inmate):
-            inmate_success += 1
+    for i in xrange(0, num_inmates):
+        # Find the box with the number i+1 by looking at half the boxes
+        inmate_success += locate(boxes, i+1)
+
     total_found += inmate_success
-    sample_done += 1
+    samples_done += 1
     if inmate_success == num_inmates:
         success += 1
     elif inmate_success == 0:
